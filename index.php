@@ -71,13 +71,7 @@ body{
   <h1>Raspberry Pi stuff</h1>
   
  
- 
-
-<ul>
-<li><a href="viikko2.html">How to find your raspi</a></li>
-<li><a href="viikko1.html">1. viikko</a></li>
-
-</ul>
+ <?php include('toc.php') ?>
 
 
 
