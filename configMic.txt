@@ -1,0 +1,250 @@
+
+putty: connect to raspberry
+or
+raspberrypi
+
+
+
+lsusb
+
+pi@raspberrypi:~ $ lsusb
+Bus 001 Device 004: ID 0424:7800 Standard Microsystems Corp.
+Bus 001 Device 003: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+Bus 001 Device 002: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+pi@raspberrypi:~ $ lsusb
+Bus 001 Device 005: ID 046d:0a4d Logitech, Inc. G430 Surround Sound Gaming Headset
+Bus 001 Device 004: ID 0424:7800 Standard Microsystems Corp.
+Bus 001 Device 003: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+Bus 001 Device 002: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+
+lsusb -t
+pi@raspberrypi:~ $ lsusb -t
+/:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=dwc_otg/1p, 480M
+    |__ Port 1: Dev 2, If 0, Class=Hub, Driver=hub/4p, 480M
+        |__ Port 1: Dev 3, If 0, Class=Hub, Driver=hub/3p, 480M
+            |__ Port 1: Dev 4, If 0, Class=Vendor Specific Class, Driver=lan78xx, 480M
+        |__ Port 2: Dev 5, If 0, Class=Audio, Driver=snd-usb-audio, 12M
+        |__ Port 2: Dev 5, If 3, Class=Human Interface Device, Driver=usbhid, 12M
+        |__ Port 2: Dev 5, If 1, Class=Audio, Driver=snd-usb-audio, 12M
+        |__ Port 2: Dev 5, If 2, Class=Audio, Driver=snd-usb-audio, 12M
+
+
+
+
+
+amixer
+
+pi@raspberrypi:~ $ amixer
+Simple mixer control 'PCM',0
+  Capabilities: pvolume pvolume-joined pswitch pswitch-joined
+  Playback channels: Mono
+  Limits: Playback -10239 - 400
+  Mono: Playback -2000 [77%] [-20.00dB] [on]
+
+
+ to do a recording test
+
+arecord -D plughw:1,0 test.wav
+
+
+https://sites.google.com/site/observing/Home/speech-recognition-with-the-raspberry-pi
+
+
+alsamixer
+
+
+
+
+---- python -----
+
+sudo apt-get install libportaudio0 libportaudio2 libportaudiocpp0 portaudio19-dev
+
+sudo pip3 install pyaudio
+
+
+import pyaudio
+p = pyaudio.PyAudio()
+for ii in range(p.get_device_count()):
+    print(p.get_device_info_by_index(ii).get('name'))
+
+
+
+
+
+pi@raspberrypi:~ $ python3 sound.py
+Expression 'alsa_snd_pcm_hw_params_set_period_size_near( pcm, hwParams, &alsaPeriodFrames, &dir )' failed in 'src/hostapi/alsa/pa_linux_alsa.c', line: 924
+Expression 'alsa_snd_pcm_hw_params_set_period_size_near( pcm, hwParams, &alsaPeriodFrames, &dir )' failed in 'src/hostapi/alsa/pa_linux_alsa.c', line: 924
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.front.0:CARD=0'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM front
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.rear
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.center_lfe
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.side
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.surround51.0:CARD=0'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM surround21
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.surround51.0:CARD=0'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM surround21
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.surround40.0:CARD=0'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM surround40
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.surround51.0:CARD=0'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM surround41
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.surround51.0:CARD=0'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM surround50
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.surround51.0:CARD=0'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM surround51
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.surround71.0:CARD=0'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM surround71
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.iec958.0:CARD=0,AES0=4,AES1=130,AES2=0,AES3=2'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM iec958
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.iec958.0:CARD=0,AES0=4,AES1=130,AES2=0,AES3=2'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM spdif
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'cards.bcm2835_alsa.pcm.iec958.0:CARD=0,AES0=4,AES1=130,AES2=0,AES3=2'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5047:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM spdif
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.hdmi
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.hdmi
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.modem
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.modem
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.phoneline
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.phoneline
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'defaults.bluealsa.device'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5036:(snd_config_expand) Args evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM bluealsa
+ALSA lib confmisc.c:1281:(snd_func_refer) Unable to find definition 'defaults.bluealsa.device'
+ALSA lib conf.c:4568:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5036:(snd_config_expand) Args evaluate error: No such file or directory
+ALSA lib pcm.c:2565:(snd_pcm_open_noupdate) Unknown PCM bluealsa
+Expression 'alsa_snd_pcm_hw_params_set_period_size_near( pcm, hwParams, &alsaPeriodFrames, &dir )' failed in 'src/hostapi/alsa/pa_linux_alsa.c', line: 924
+Cannot connect to server socket err = Connection refused
+Cannot connect to server request channel
+jack server is not running or cannot be started
+JackShmReadWritePtr::~JackShmReadWritePtr - Init not done for -1, skipping unlock
+JackShmReadWritePtr::~JackShmReadWritePtr - Init not done for -1, skipping unlock
+bcm2835 ALSA: IEC958/HDMI (hw:0,1)
+bcm2835 ALSA: IEC958/HDMI1 (hw:0,2)
+Logitech G430 Gaming Headset: USB Audio (hw:1,0)
+dmix
+pi@raspberrypi:~ $
+
+
+
+
+
+
+https://people.csail.mit.edu/hubert/pyaudio/docs/
+
+
+
+
+https://makersportal.com/blog/2018/8/23/recording-audio-on-the-raspberry-pi-with-python-and-a-usb-microphone
+
+
+
+import pyaudio
+import wave
+
+form_1 = pyaudio.paInt16 # 16-bit resolution
+chans = 1 # 1 channel
+samp_rate = 44100 # 44.1kHz sampling rate
+chunk = 4096 # 2^12 samples for buffer
+record_secs = 3 # seconds to record
+dev_index = 2 # device index found by p.get_device_info_by_index(ii)
+wav_output_filename = 'test1.wav' # name of .wav file
+
+audio = pyaudio.PyAudio() # create pyaudio instantiation
+
+# create pyaudio stream
+stream = audio.open(format = form_1,rate = samp_rate,channels = chans, \
+                    input_device_index = dev_index,input = True, \
+                    frames_per_buffer=chunk)
+print("recording")
+frames = []
+
+# loop through stream and append audio chunks to frame array
+for ii in range(0,int((samp_rate/chunk)*record_secs)):
+    data = stream.read(chunk)
+    frames.append(data)
+
+print("finished recording")
+
+# stop the stream, close it, and terminate the pyaudio instantiation
+stream.stop_stream()
+stream.close()
+audio.terminate()
+
+# save the audio frames as .wav file
+wavefile = wave.open(wav_output_filename,'wb')
+wavefile.setnchannels(chans)
+wavefile.setsampwidth(audio.get_sample_size(form_1))
+wavefile.setframerate(samp_rate)
+wavefile.writeframes(b''.join(frames))
+wavefile.close()
+
+
+
+sudo apt-get install python-numpy python-matplotlib python-mpltoolkits.basemap python-scipy python-sklearn python-statsmodels python-pandas
+
+pip3 install scipy
+sudo apt-get install libblas-dev
+pip3 install scipy
+NOT WORKING
+
+NEXT TRY
+sudo apt-get install build-essential gfortran libatlas-base-dev python-pip python-dev
+sudo pip install --upgrade pip
+
+sudo pip3 install numpy
+sudo pip3 install scipy
+NOPE
+
+
+
+::WIN::
+conda install pyaudio
+
+> import _portaudio as pa
+> ImportError: DLL load failed: The specified module could not be found.
+
+conda install portaudio
+
+EI
+
+conda install -c anaconda portaudio
+
+OK
+
+
+
+
+
+
+
+
+
+
+
+
